@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="experience-section">
+  <h2 class="section-title">Employment History</h2>
+
+  {% for exp in experiences %}
+  <div class="experience-card">
+    <h3>{{ exp.role }}</h3>
+    <h4>{{ exp.company }}</h4>
+    <p class="period">{{ exp.period }}</p>
+
+    <ul class="experience-list">
+      {% for line in exp.description.split('\n') %}
+      {% if line.strip() %}
+      <li>{{ line[2:] if line.startswith('• ') else line }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</section>
+
+<!-- New Skills Section -->
+<section class="skills-section">
+  <h2 class="section-title">Technical & Virtual Assistant Skills</h2>
+
+  <div class="skills-grid">
+    <div class="skill">
+      <span>📄 Microsoft Office / Google Workspace</span>
+      <div class="bar"><div class="fill" style="width: 90%;"></div></div>
+    </div>
+    <div class="skill">
+      <span>💬 Customer Service & Communication</span>
+      <div class="bar"><div class="fill" style="width: 95%;"></div></div>
+    </div>
+    <div class="skill">
+      <span>🛠️ Hardware & Software Troubleshooting</span>
+      <div class="bar"><div class="fill" style="width: 85%;"></div></div>
+    </div>
+    <div class="skill">
+      <span>📊 Data Entry & Documentation</span>
+      <div class="bar"><div class="fill" style="width: 90%;"></div></div>
+    </div>
+    <div class="skill">
+      <span>📅 Scheduling & Task Management</span>
+      <div class="bar"><div class="fill" style="width: 80%;"></div></div>
+    </div>
+    <div class="skill">
+      <span>🌐 Basic Web Development (HTML, CSS, Flask)</span>
+      <div class="bar"><div class="fill" style="width: 75%;"></div></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "This site built with Flask and templates (HTML/CSS/Jinja)."
+  },
+  {
+    "title": "Task Tracker",
+    "description": "A simple task tracker to add, mark complete, and filter tasks."
+  },
+  {
+    "title": "Data Entry Automation",
+    "description": "Python scripts to automate repetitive spreadsheet work."
+  }
+]

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename=user.image) }}" alt="{{ user.name }}">
+    </div>
+    <div class="hero-text">
+      <h1>Hi, I'm <span class="highlight">{{ user.name }}</span></h1>
+      <h2>{{ user.title }}</h2>
+      <p>{{ user.description }}</p>
+      <div class="hero-buttons">
+        <a href="{{ url_for('contact') }}" class="btn btn-primary">Hire Me</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h2>Projects</h2>
+  <div class="project-grid">
+    {% for p in projects %}
+    <div class="project-card">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="about-section">
+  <h2>About Me</h2>
+  <div class="about-content">
+    <img src="{{ url_for('static', filename=user.image) }}" alt="{{ user.name }}" class="about-image">
+    <div class="about-text">
+      <p>
+        Hello! I’m <strong>{{ user.name }}</strong>, a <strong>{{ user.title }}</strong>.
+        I’m passionate about technology, digital efficiency, and helping businesses stay organized and productive.
+      </p>
+      <p>
+        My goal is to combine my IT background with strong administrative and communication skills — 
+        offering clients professional support in both technical and operational areas.
+      </p>
+      <p>Here are some of the tools and skills I work with:</p>
+      <div class="skills-grid">
+        <span>📊 Microsoft Excel / Google Sheets</span>
+        <span>🧠 Data Entry & Research</span>
+        <span>💬 Email & Calendar Management</span>
+        <span>🧩 Canva / Graphic Design</span>
+        <span>⚙️ Python / Flask / HTML / CSS</span>
+        <span>📁 File Organization & Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
