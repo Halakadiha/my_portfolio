@@ -1,22 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="contact-section">
-  <h2>Contact Me</h2>
-  <p>You can reach me at:</p>
-  <ul class="contact-list">
-    <li>
-      <i class="fa-solid fa-envelope"></i>
-      <a href="mailto:aseijuro20@gmail.com">aseijuro20@gmail.com</a>
-    </li>
-    <li>
-      <i class="fa-brands fa-linkedin"></i>
-      <a href="https://www.linkedin.com/in/rad-amiled-0231a7191/" target="_blank">Rad</a>
-    </li>
-    <li>
-      <i class="fa-brands fa-instagram"></i>
-      <a href="https://www.instagram.com/radstpn_/" target="_blank">rdstpn_</a>
-    </li>
-  </ul>
+<section class="contact-section fade-in">
+  <h2 class="section-title">Let’s Connect</h2>
+  <p class="contact-intro">
+    Whether you’d like to collaborate or just say hi — feel free to reach out!
+  </p>
+
+  <div class="contact-grid fade-in-up">
+    <div class="contact-info">
+      <div class="contact-card fade-in-up">
+        <i class="fa-solid fa-envelope icon"></i>
+        <p>aseijuro20@gmail.com</p>
+      </div>
+      <div class="contact-card fade-in-up">
+        <i class="fa-brands fa-linkedin icon"></i>
+        <a href="https://www.linkedin.com/in/rad-amiled-0231a7191/" target="_blank">LinkedIn</a>
+      </div>
+      <div class="contact-card fade-in-up">
+        <i class="fa-brands fa-instagram icon"></i>
+        <a href="https://www.instagram.com/radstpn_/" target="_blank">@radstpn_</a>
+      </div>
+    </div>
+
+    <form action="{{ url_for('contact') }}" method="POST" class="contact-form fade-in-up">
+      <input type="text" name="name" placeholder="Your Name" value="{{ form.name or '' }}" required>
+      <input type="email" name="email" placeholder="Your Email" value="{{ form.email or '' }}" required>
+      <textarea name="message" placeholder="Your Message..." rows="5" required>{{ form.message or '' }}</textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+
+  {% if success %}
+  <p class="success-message fade-in-up">✅ Your message has been sent successfully!</p>
+  {% endif %}
 </section>
 {% endblock %}

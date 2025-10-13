@@ -1,0 +1,26 @@
+[
+  {
+    "id": "portfolio-website",
+    "title": "Portfolio Website",
+    "description": "This site built with Flask and templates.",
+    "details": "Built with Flask, Jinja2 templates, hosted on Render. Features projects, experience, and contact form.",
+    "image": "projects/resume.png",
+    "url": ""
+  },
+  {
+    "id": "task-tracker",
+    "title": "Task Tracker",
+    "description": "A simple CLI task manager.",
+    "details": "A small Python CLI app for adding and completing tasks.",
+    "image": "projects/study.png",
+    "url": ""
+  },
+  {
+    "id": "data-entry",
+    "title": "Data Entry Automation",
+    "description": "Scripts to speed up Excel work.",
+    "details": "Python scripts using openpyxl/pandas for Excel automation.",
+    "image": "projects/automation.png",
+    "url": ""
+  }
+]

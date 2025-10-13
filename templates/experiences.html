@@ -13,7 +13,7 @@
     <ul class="experience-list">
       {% for line in exp.description.split('\n') %}
       {% if line.strip() %}
-      <li>{{ line[2:] if line.startswith('• ') else line }}</li>
+      <li>{{ line | replace('• ', '') }}</li>
       {% endif %}
       {% endfor %}
     </ul>

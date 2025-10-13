@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="projects-page container">
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Selected projects — click any card for more details.</p>
+
+  <div class="projects-grid" id="projects-grid">
+    {% for p in projects %}
+    <article class="project-card" data-project-id="{{ p.id }}">
+      <div class="project-thumb">
+        {% if p.image %}
+          <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }}">
+        {% else %}
+          <div class="thumb-placeholder" aria-hidden="true"></div>
+        {% endif %}
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">{{ p.title }}</h3>
+        <p class="muted">{{ p.description }}</p>
+        <div class="project-actions">
+          <button class="project-more" data-id="{{ p.id }}"
+                  data-title="{{ p.title|e }}"
+                  data-details="{{ p.details|e }}"
+                  data-url="{{ p.url|e }}">
+            View details
+          </button>
+          {% if p.url %}
+            <a class="btn btn-link" href="{{ p.url }}" target="_blank" rel="noopener">Open</a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Modal -->
+<div id="project-modal" class="modal hidden" role="dialog" aria-hidden="true" aria-labelledby="modal-title">
+  <div class="modal-inner" role="document">
+    <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-content">
+      <h3 id="modal-title"></h3>
+      <div id="modal-image"></div>
+      <p id="modal-details"></p>
+      <div id="modal-links"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

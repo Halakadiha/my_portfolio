@@ -1,0 +1,79 @@
+<!--{% extends "base.html" %}
+<section class="projects-page">
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Selected projects — click any card for more details.</p>
+
+  <div class="projects-grid" id="projects-grid">
+    {% for p in projects %}
+    <article class="project-card" data-project-id="{{ p.id }}">
+      <div class="project-thumb">
+        {% if p.image %}
+        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }}">
+        {% else %}
+        <div class="thumb-placeholder"></div>
+        {% endif %}
+      </div>
+      <div class="project-body">
+        <h3>{{ p.title }}</h3>
+        <p class="muted">{{ p.description }}</p>
+        <a class="project-more" href="#"
+           data-id="{{ p.id }}"
+           data-title="{{ p.title|e }}"
+           data-details="{{ p.details|e }}"
+           data-url="{{ p.url|e }}">View details</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<- Modal
+<div id="project-modal" class="modal hidden" role="dialog" aria-hidden="true">
+  <div class="modal-inner">
+    <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+    <h3 id="modal-title"></h3>
+    <p id="modal-details"></p>
+    <div id="modal-links"></div>
+  </div>
+</div>
+{% endblock %}-->
+
+{% extends "base.html" %}
+{% block content %}
+<section class="projects-section">
+  <h1>My Projects</h1>
+  <div class="projects-container">
+    {% for project in projects %}
+      <div class="project-card">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    background: #121212;
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+  }
+</style>
+{% endblock %}

@@ -127,11 +127,48 @@ def load_experiences():
     except Exception:
         return []
 
-@app.route('/experience')
-def experience():
+@app.route('/experiences')
+def experiences():
+    with open('experiences.json', 'r', encoding='utf-8') as f:
+        experiences = json.load(f)
+
+    return render_template('experiences.html', experiences=experiences)
+
+
+@app.route('/projects')
+def projects_page():
+    # load using your helper if present, otherwise read file
+    try:
+        projects = load_projects()   # if you already have load_projects() defined
+    except Exception:
+        import json
+        with open(data_path('projects.json'), 'r', encoding='utf-8') as f:
+            projects = json.load(f)
+
+    # render; user is injected from your context_processor so no need to pass user
+    return render_template('projects.html', projects=projects, current_year=datetime.now().year)
+
+
+@app.route("/project_test")
+def project_test():
     user = get_user()
-    experiences = load_experiences()
-    return render_template('experiences.html', user=user, experiences=experiences, current_year=datetime.now().year)
+    projects = load_projects()
+    return render_template(
+        "project_test.html",
+        user=user,
+        projects=projects,
+        current_year=datetime.now().year
+    )
+
+@app.context_processor
+def inject_user():
+    user = {
+        "name": "Jollyrad Stephen Delima",
+        "title": "Virtual Assistant & IT Specialist",
+        "image": "profile.jpg"
+    }
+    return dict(user=user)
+
 
 # Run
 if __name__ == '__main__':
