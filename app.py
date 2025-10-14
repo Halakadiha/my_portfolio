@@ -189,27 +189,3 @@ def inject_user():
 if __name__ == '__main__':
     # debug=True helps during development
     app.run(debug=True)
-
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        message = request.form["message"]
-
-        msg = Message(
-            subject=f"Newmessage from {name}",
-            sender=email,
-            recipients=[os.environ.get('MAIL_USERNAME')],  # your email
-        )
-        msg.body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-
-        try:
-            mail.send(msg)
-            flash("Message has been sent successfully!", "success")
-        except Exception as e:
-            print("Error:", e)
-            flash("Sorry, something went wrong. Please try again later.", "error")
-        return redirect(url_for("contact"))
-    
-    return render_template("contact.html", current_year=datetime.now().year)
