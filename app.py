@@ -3,6 +3,21 @@ import re
 import json
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mail import Mail, Message
+
+# Initialize Flask app
+app = Flask(__name__)
+app.secret_key = "supersecretkey"  # you can change this later
+
+# Flask-Mail Configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')  # your email
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # your app password
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+
+mail = Mail(app)
 
 # Create app and folders (explicitly set folders)
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -174,3 +189,27 @@ def inject_user():
 if __name__ == '__main__':
     # debug=True helps during development
     app.run(debug=True)
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        message = request.form["message"]
+
+        msg = Message(
+            subject=f"Newmessage from {name}",
+            sender=email,
+            recipients=[os.environ.get('MAIL_USERNAME')],  # your email
+        )
+        msg.body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+
+        try:
+            mail.send(msg)
+            flash("Message has been sent successfully!", "success")
+        except Exception as e:
+            print("Error:", e)
+            flash("Sorry, something went wrong. Please try again later.", "error")
+        return redirect(url_for("contact"))
+    
+    return render_template("contact.html", current_year=datetime.now().year)
