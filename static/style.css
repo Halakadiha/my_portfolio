@@ -810,4 +810,19 @@ main {
   }
 }
 
+/* === Smooth Fade Animations === */
 
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s ease forwards;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Staggered animation timing */
+.contact-card:nth-child(1) { animation-delay: 0.2s; }
