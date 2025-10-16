@@ -4,20 +4,36 @@ import json
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mail import Mail, Message
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 
 # Initialize Flask app
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # you can change this later
 
-# Flask-Mail Configuration
+# --- Flask-Mail Configuration for Gmail ---
+# It's best practice to use environment variables for sensitive info!
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+# Use port 587 for TLS or 465 for SSL. TLS (587) is generally preferred.
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')  # your email
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # your app password
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_USE_SSL'] = False # Set to False when using TLS
+# Your Gmail address
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'aseijuro20@gmail.com')
+# The 16-character App Password you generated
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'epiyvwbndsrdioke') 
+app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME']
 
 mail = Mail(app)
+
+print("MAIL SETTINGS:")
+print("Server:", os.getenv("MAIL_SERVER"))
+print("Port:", os.getenv("MAIL_PORT"))
+print("Use TLS:", os.getenv("MAIL_USE_TLS"))
+print("Username:", os.getenv("MAIL_USERNAME"))
+print("Password:", os.getenv("MAIL_PASSWORD"))
+print("Default sender:", os.getenv("MAIL_DEFAULT_SENDER"))
 
 # Create app and folders (explicitly set folders)
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -183,6 +199,14 @@ def inject_user():
         "image": "profile.jpg"
     }
     return dict(user=user)
+
+@app.route('/test-mail')
+def test_mail():
+    msg = Message('Hello from Flask',
+                  recipients=['yourrecipient@gmail.com'])
+    msg.body = 'This is a test email sent from your Flask app!'
+    mail.send(msg)
+    return 'Mail sent successfully!'
 
 
 # Run
