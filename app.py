@@ -120,7 +120,7 @@ def contact():
             mail.send(msg)
             flash("Your message has been sent successfully!", "success")
         except Exception as e:
-            app.logger.exception("Email sending failed")
+            app.logger.error(f"Email sending failed: {e}")
             flash("Message saved, but email sending failed.", "warning")
 
         return redirect(url_for('contact'))
