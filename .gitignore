@@ -1,1 +1,31 @@
+# Environment files
 .env
+*.env
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / editor settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Flask instance folder (if any)
+instance/
+
+# Deployment or temporary files
+*.sqlite3
+messages.json
