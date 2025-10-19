@@ -208,6 +208,30 @@ def test_mail():
     mail.send(msg)
     return 'Mail sent successfully!'
 
+mail = Mail(app)
+
+@app.route('/contact', methods=['POST'])
+def contact():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+
+    # Save to JSON (optional)
+    data = {'name': name, 'email': email, 'message': message, 'timestamp': str(datetime.now())}
+    with open('messages.json', 'a') as f:
+        f.write(json.dumps(data) + '\n')
+
+    # Send email to you
+    msg = Message(
+        subject=f"New message from {name}",
+        sender=app.config['MAIL_DEFAULT_SENDER'],
+        recipients=[app.config['MAIL_USERNAME']],
+        body=f"From: {name} <{email}>\n\nMessage:\n{message}"
+    )
+    mail.send(msg)
+
+    flash('Your message has been sent successfully!')
+    return redirect(url_for('index'))
 
 # Run
 if __name__ == '__main__':
